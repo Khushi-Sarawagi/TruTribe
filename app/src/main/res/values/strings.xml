@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="app_name">TruTribe</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="profile_icon">Profile icon</string>
+    <string name="lock_icon">Lock icon</string>
+    <string name="password">Password</string>
+    <string name="input_username">Type your Username</string>
+    <string name="input_password">Type your Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="account_ques">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+</resources>
