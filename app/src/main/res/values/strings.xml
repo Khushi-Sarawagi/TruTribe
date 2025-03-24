@@ -10,5 +10,12 @@
     <string name="input_password">Type your Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="account_ques">Don\'t have an account?</string>
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">SignUpPage</string>
+    <string name="app_name">TruTribe</string>
+    <string name="signup">Sign Up</string>
+    <string name="email">User Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="profile_icon">Profile icon</string>
+    <string name="lock_icon">Lock icon</string>
 </resources>
