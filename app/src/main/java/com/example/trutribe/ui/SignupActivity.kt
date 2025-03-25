@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.trutribe.R
+import com.example.trutribe.api.RetrofitClient
+import com.example.trutribe.api.ApiResponse
+import com.example.trutribe.api.ApiService
+import com.example.trutribe.api.UserData
 
 class SignupActivity : AppCompatActivity() {
 
@@ -19,7 +24,7 @@ class SignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_main)
 
         emailInput = findViewById(R.id.email)
         passwordInput = findViewById(R.id.password)
