@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trutribe.R
+import com.example.trutribe.SignupActivity
 import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.api.ApiResponse
 import com.example.trutribe.api.ApiService
@@ -23,6 +24,12 @@ class LoginActivity : AppCompatActivity() {
         val usernameField = findViewById<EditText>(R.id.input_username)
         val passwordField = findViewById<EditText>(R.id.input_password)
         val loginButton = findViewById<Button>(R.id.login_button)
+
+        val signupButton = findViewById<Button>(R.id.signup_button)
+        signupButton.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
 
         loginButton.setOnClickListener {
             val username = usernameField.text.toString().trim()
