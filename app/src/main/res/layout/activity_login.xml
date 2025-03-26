@@ -60,7 +60,7 @@ android:textColor="@color/black"
             android:layout_gravity="center"
 
             />
-        
+
         <EditText
             android:layout_width="225dp"
             android:autofillHints="name"
@@ -146,9 +146,10 @@ android:layout_width="wrap_content">
         android:layout_height="62dp"
         android:textColor="@color/white"
 
-        android:backgroundTint="@color/deep_teal"
+        android:backgroundTint="#ba68c8"
         android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+       />
 
 
 
@@ -180,7 +181,7 @@ android:layout_width="wrap_content">
         android:layout_width="286dp"
         android:layout_height="62dp"
         android:textColor="@color/white"
-        android:backgroundTint="@color/deep_teal"
+        android:backgroundTint="#ba68c8"
         android:layout_marginHorizontal="70dp"
         android:layout_marginTop="5dp" />
 
