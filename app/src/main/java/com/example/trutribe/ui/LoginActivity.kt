@@ -7,10 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trutribe.R
-import com.example.trutribe.SignupActivity
 import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.api.ApiResponse
-import com.example.trutribe.api.ApiService
 import com.example.trutribe.api.UserData
 import retrofit2.Call
 import retrofit2.Callback

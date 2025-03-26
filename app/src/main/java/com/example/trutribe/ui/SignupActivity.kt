@@ -1,4 +1,4 @@
-package com.example.trutribe
+package com.example.trutribe.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +12,7 @@ import retrofit2.Response
 import com.example.trutribe.R
 import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.api.ApiResponse
-import com.example.trutribe.api.ApiService
 import com.example.trutribe.api.UserData
-import com.example.trutribe.ui.LoginActivity
 
 class SignupActivity : AppCompatActivity() {
 
