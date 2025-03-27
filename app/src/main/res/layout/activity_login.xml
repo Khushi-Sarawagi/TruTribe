@@ -30,7 +30,7 @@
         android:textSize="32sp"
         android:layout_marginBottom="35dp"
         android:layout_marginStart="158dp"
-        android:layout_marginLeft="158dp"/>
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,13 +38,11 @@
         android:textSize="20sp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="74dp"
-        android:layout_marginLeft="74dp"
 android:textColor="@color/black"
         android:text="@string/username"/>
 
     <LinearLayout
         android:id="@+id/input_box"
-        android:layout_marginLeft="74dp"
         android:layout_marginStart="74dp"
         android:background="@drawable/transparent_border"
         android:layout_height="wrap_content"
@@ -82,7 +80,6 @@ android:layout_height="wrap_content"
 android:textSize="20sp"
 android:layout_marginTop="18dp"
 android:layout_marginStart="74dp"
-android:layout_marginLeft="74dp"
     android:layout_marginBottom="10dp"
 android:text="@string/password"
     android:textColor="@color/black"/>
@@ -90,7 +87,6 @@ android:text="@string/password"
 
 <LinearLayout
 android:id="@+id/input_password_box"
-android:layout_marginLeft="74dp"
 android:layout_marginStart="74dp"
 android:background="@drawable/transparent_border"
 android:layout_height="wrap_content"
@@ -127,7 +123,6 @@ android:layout_width="wrap_content">
             android:layout_height="wrap_content"
             android:text="@string/forgot_password"
             android:layout_marginEnd="70dp"
-           android:layout_marginRight="70dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -161,8 +156,7 @@ android:layout_width="wrap_content">
     android:layout_height="18dp"
     android:text="@string/account_ques"
     android:textSize="15sp"
-    android:paddingLeft="10dp"
-    android:paddingRight="0dp"
+
     android:paddingEnd="0dp"
     android:paddingStart="10dp"
     android:layout_gravity="center"
