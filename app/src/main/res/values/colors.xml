@@ -8,10 +8,14 @@
     <color name="light_orange">#FFA500</color>
     <color name="light_blue">#A8D8EA</color>
 <color name="deep_teal">#0A9396</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="teal_700">#FF018786</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
+
+   <color name="good_green">#58CC02</color>
+    <color name="light_green">#C8F080</color>
 
 </resources>
