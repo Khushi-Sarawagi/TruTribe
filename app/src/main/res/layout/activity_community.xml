@@ -8,32 +8,26 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <ImageView
+        <ImageView
         android:id="@+id/back_arrow"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/round_arrow_back_24"
-        android:contentDescription="@string/back_arrow"
+        android:contentDescription="@string/back_arrow" />
 
-        />
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="horizontal">
 
-        >
-
-        <ImageView
+            <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/baseline_dehaze_24"
@@ -41,16 +35,16 @@
             android:layout_marginStart="10dp"
             android:contentDescription="@string/three_dash"/>
 
-        <TextView
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textSize="30sp"
             android:fontFamily="@font/italiana_regular"
             android:textColor="@color/black"/>
+        </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+
 
 
 

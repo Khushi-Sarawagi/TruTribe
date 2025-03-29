@@ -1,4 +1,120 @@
 package com.example.trutribe.ui
 
-class CommunityPageActivity {
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.trutribe.R
+import com.example.trutribe.models.CommunityModel
+import com.example.trutribe.api.RetrofitClient
+import com.example.trutribe.adapters.CommunityAdapter
+import java.util.ArrayList
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.widget.Toast
+
+
+class CommunityPageActivity: AppCompatActivity(){
+    private lateinit var trendingRecyclerView:RecyclerView
+    private lateinit var suggestedRecyclerView:RecyclerView
+    private lateinit var myCommunityRecyclerView:RecyclerView
+    private lateinit var trendingAdapter:CommunityAdapter
+    private lateinit var suggestedAdapter:CommunityAdapter
+    private lateinit var myCommunityAdapter:CommunityAdapter
+    private lateinit var communitylist:ArrayList<CommunityModel>
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_community)
+        trendingRecyclerView = findViewById(R.id.trending_community)
+        suggestedRecyclerView = findViewById(R.id.suggested_community)
+        myCommunityRecyclerView = findViewById(R.id.my_community)
+        trendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        suggestedRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        myCommunityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        fetchTrendingCommunities()
+        fetchSuggestedCommunities()
+        fetchMyCommunities()
+    }
+    private fun fetchTrendingCommunities() {
+        val call = RetrofitClient.instance.getTrendingCommunities()
+
+        call.enqueue(object : Callback<List<CommunityModel>> {
+            override fun onResponse(
+                call: Call<List<CommunityModel>>,
+                response: Response<List<CommunityModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val trendingList = response.body() ?: ArrayList()
+                    trendingAdapter = CommunityAdapter(ArrayList(trendingList))
+                    trendingRecyclerView.adapter = trendingAdapter
+                } else {
+                    Toast.makeText(this@CommunityPageActivity, "Failed to load trending communities", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<CommunityModel>>, t: Throwable) {
+                Toast.makeText(this@CommunityPageActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun fetchSuggestedCommunities() {
+        val call = RetrofitClient.instance.getSuggestedCommunities()
+
+        call.enqueue(object : Callback<List<CommunityModel>> {
+            override fun onResponse(
+                call: Call<List<CommunityModel>>,
+                response: Response<List<CommunityModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val suggestedList = response.body() ?: ArrayList()
+                    suggestedAdapter = CommunityAdapter(ArrayList(suggestedList))
+                    suggestedRecyclerView.adapter = suggestedAdapter
+                } else {
+                    Toast.makeText(this@CommunityPageActivity, "Failed to load suggested communities", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<CommunityModel>>, t: Throwable) {
+                Toast.makeText(this@CommunityPageActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun fetchMyCommunities() {
+        val call = RetrofitClient.instance.getMyCommunities()
+
+        call.enqueue(object : Callback<List<CommunityModel>> {
+            override fun onResponse(
+                call: Call<List<CommunityModel>>,
+                response: Response<List<CommunityModel>>
+            ) {
+                if (response.isSuccessful) {
+                    // Get the list or use an empty list if null
+                    val myCommunityList = response.body() ?: ArrayList()
+
+                    // Corrected line here
+                    myCommunityAdapter = CommunityAdapter(ArrayList(myCommunityList))
+
+                    // Set adapter to RecyclerView
+                    myCommunityRecyclerView.adapter = myCommunityAdapter
+                }
+            }
+
+            override fun onFailure(call: Call<List<CommunityModel>>, t: Throwable) {
+                Toast.makeText(
+                    this@CommunityPageActivity,
+                    "Error: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
 }

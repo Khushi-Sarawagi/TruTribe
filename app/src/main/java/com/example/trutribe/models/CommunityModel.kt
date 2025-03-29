@@ -1,4 +1,6 @@
 package com.example.trutribe.models
 
-class CommunityModel {
-}
+class CommunityModel (
+    val dataTitle: String = "",
+    val dataImage: String = ""
+    )
