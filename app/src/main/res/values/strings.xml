@@ -34,4 +34,9 @@
     <string name="success_message_join">You have Successfully passed the Quiz and joined the Community!</string>
     <string name="continue_btn">Continue</string>
     <string name="cross_btn">cross_button</string>
+    <string name="failed">Failed</string>
+    <string name="oops_sorry">OOPS ! Sorry !</string>
+    <string name="not_passed">You have not passsed the quiz. You Scored</string>
+    <string name="back">Back</string>
+    <string name="try_again">Try Again</string>
 </resources>

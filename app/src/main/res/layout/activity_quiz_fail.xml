@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:elevation="200dp"
+    app:cardCornerRadius="20dp"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:id="@+id/card_success_join">
+
+
+    <ImageButton
+        android:id="@+id/cross_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross"
+        android:backgroundTint="@color/white"
+        android:layout_gravity="end"
+        android:contentDescription="@string/cross_btn"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="5dp">
+
+
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="150dp"
+            android:src="@drawable/failed"
+            android:contentDescription="@string/failed"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oops_sorry"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/red"
+            android:textSize="25sp"
+            android:fontFamily="@font/bungee_regular"
+            android:textStyle="bold"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/not_passed"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="5dp"/>
+
+<!--Scores will change dynamically-->
+
+<TextView
+    android:id="@+id/score_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="2/5"
+    android:layout_gravity="center_horizontal"
+    android:textStyle="bold"
+    android:textColor="@color/red"
+    android:textSize="20sp"
+    />
+
+<LinearLayout
+    style="?android:attr/buttonBarStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="20dp">
+
+
+    <Button
+        android:id="@+id/try_again_btn"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:text="@string/try_again"
+        android:backgroundTint="@color/red"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/back_btn"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:text="@string/back"
+        android:backgroundTint="@color/good_green"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"/>
+
+</LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
