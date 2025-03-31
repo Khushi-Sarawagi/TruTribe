@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+   android:elevation="200dp"
+    app:cardCornerRadius="20dp"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:id="@+id/card_success_join">
+
+
+    <ImageButton
+        android:id="@+id/cross_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cross"
+        android:backgroundTint="@color/white"
+        android:layout_gravity="end"
+        android:contentDescription="@string/cross_btn"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="16dp">
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/celebrate"
+            android:contentDescription="@string/success"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/congratulations"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/good_green"
+            android:textSize="25sp"
+            android:fontFamily="@font/bungee_regular"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/success_message_join"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="5dp"/>
+
+
+
+
+        <Button
+            android:id="@+id/success_button_continue"
+            android:layout_width="244dp"
+            android:layout_height="75dp"
+            android:text="@string/continue_btn"
+            android:backgroundTint="@color/good_blue"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
