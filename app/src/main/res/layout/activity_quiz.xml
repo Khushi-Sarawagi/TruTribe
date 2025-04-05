@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="18dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/back_arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/round_arrow_back_24"
+                android:contentDescription="@string/back_arrow"
+
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/baseline_dehaze_24"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="@string/three_dash"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textSize="30sp"
+                    android:fontFamily="@font/italiana_regular"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+<!--Questions, Question number and options will be generated dynamically-->
+<!--Even timer, community title and progress bar-->
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/tablayout"
+        >
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+<!--Generate the community title dynamically-->
+
+
+            <TextView
+                android:id="@+id/community_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"/>
+
+<!--Update the timer every second by adding text-->
+            <TextView
+                android:id="@+id/timer_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textSize="15sp"
+                android:gravity="end"
+                android:textColor="@color/red"
+                app:drawableTopCompat="@drawable/_icon__timer" />
+
+        </LinearLayout>
+
+<!--Update the progress bar dynamically-->
+
+        <ProgressBar
+            android:id="@+id/progress_calculate"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_gravity="center_horizontal"
+            android:max="100"
+            android:progress="20"
+            android:progressDrawable="@drawable/progress_bar"
+            />
+
+
+<!--This textview is for the question number to be generated dynamically-->
+
+
+                <TextView
+                    android:id="@+id/ques_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+
+                  />
+
+<!--            This textview is for the question to be generated dynamically-->
+
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    />
+
+
+<!--            Options to be generated dynamically-->
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="30dp">
+
+                <RadioButton
+                    android:id="@+id/option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/option_box"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"/>
+
+                <RadioButton
+                    android:id="@+id/option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/option_box"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/option_box"/>
+
+                <RadioButton
+                    android:id="@+id/option4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:button="@null"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+
+                    android:background="@drawable/option_box"/>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="340dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="65dp"
+                android:backgroundTint="@color/good_green"
+
+                android:text="Next"/>
+        </LinearLayout>
+
+</ScrollView>
+    </FrameLayout>
+
+<!--    This is tab layout-->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        android:layout_alignParentBottom="true"
+        app:tabIconTint="@null"
+        app:tabIndicatorHeight="0dp"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/search" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/notification" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile" />
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+</RelativeLayout>

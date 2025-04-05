@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    >
+    android:gravity="center">
     <TextView
         android:id="@+id/AppName"
         android:layout_width="152dp"
         android:layout_height="50dp"
-        android:layout_marginHorizontal="130dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="5dp"
+
+
+
         android:fontFamily="@font/italiana_regular"
         android:gravity="bottom"
         android:text="@string/app_name"
@@ -21,14 +22,21 @@
         android:id="@+id/SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+
         android:text="@string/signup"
         android:fontFamily=""
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         android:textSize="28sp"
-        android:layout_gravity="center_horizontal"/>
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
 
 
     <TextView
@@ -38,12 +46,13 @@
         android:text="@string/email"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_marginStart="74dp"
+
         android:layout_marginBottom="10dp"/>
+
     <LinearLayout
         android:id="@+id/input_email_box"
-        android:layout_marginStart="74dp"
-        android:background="@drawable/input_signup"
+
+        android:background="@drawable/input_purple_box"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginBottom="20dp">
@@ -74,6 +83,12 @@
             />
 
     </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/Password"
         android:layout_width="wrap_content"
@@ -81,12 +96,12 @@
         android:text="@string/password"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_marginStart="74dp"
+
         android:layout_marginBottom="10dp"/>
     <LinearLayout
         android:id="@+id/input_password_box"
-        android:layout_marginStart="74dp"
-        android:background="@drawable/input_signup"
+
+        android:background="@drawable/input_blue_box"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content">
 
@@ -115,6 +130,12 @@
             android:paddingVertical="15dp"
             />
     </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/ConfirmPassword"
         android:layout_width="wrap_content"
@@ -122,49 +143,55 @@
         android:text="@string/confirm_password"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:layout_marginStart="74dp"
+
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"/>
-    <LinearLayout
-        android:id="@+id/input_confirm_password_box"
-        android:layout_marginStart="74dp"
-        android:background="@drawable/input_signup"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
 
-        <ImageView
-            android:id="@+id/ConfirmPasswordIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/lock"
-            android:contentDescription="@string/lock_icon"
-            android:scaleType="fitXY"
-            android:layout_marginHorizontal="11dp"
-            android:layout_gravity="center"
+        <LinearLayout
+            android:id="@+id/input_confirm_password_box"
 
-            />
-
-        <EditText
-            android:id="@+id/confirm_password"
-            android:layout_width="225dp"
-            android:autofillHints="name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:hint="@string/confirm_password"
-            android:background="@null"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:paddingVertical="15dp"
-            />
+            android:background="@drawable/input_orange_box">
+
+            <ImageView
+                android:id="@+id/ConfirmPasswordIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="11dp"
+                android:contentDescription="@string/lock_icon"
+                android:scaleType="fitXY"
+                android:src="@drawable/lock"
+
+                />
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="name"
+                android:background="@null"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:paddingVertical="15dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
+
+
     <Button
         android:id="@+id/signupButton"
         android:text="@string/signup"
+
         android:layout_width="280dp"
         android:layout_height="62dp"
         android:textColor="@color/white"
-        android:backgroundTint="@color/deep_teal"
+android:backgroundTint="@color/light_pink"
+        app:cornerRadius="20dp"
         android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        />
 
 </LinearLayout>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/round_arrow_back_24"
+        android:contentDescription="@string/back_arrow"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_dehaze_24"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/three_dash"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:fontFamily="@font/italiana_regular"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/tablayout"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="328dp"
+            android:layout_height="52dp"
+            android:background="@drawable/search_box"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
+            >
+
+
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/coming_soon"
+                android:paddingStart="16dp"
+                android:paddingEnd="50dp"
+                android:textSize="16sp"
+                android:background="@android:color/transparent"
+                android:singleLine="true"
+                android:inputType="text"
+                android:autofillHints="name"/>
+
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/search"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/search"/>
+        </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:text="@string/trending_communities"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:fontFamily="@font/italiana_regular"
+        android:letterSpacing="0.1"
+        />
+
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/trending_community"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:clipToPadding="false"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    tools:listitem="@layout/trending_card"
+    android:orientation="horizontal"
+    android:scrollbars="horizontal"
+    />
+
+    <TextView
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:text="@string/suggested_communities"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:fontFamily="@font/italiana_regular"
+        android:letterSpacing="0.1"
+        />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/suggested_community"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/trending_card"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        />
+
+    <TextView
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:text="@string/my_communities"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+
+        android:padding="10dp"
+        android:textSize="25sp"
+        android:fontFamily="@font/italiana_regular"
+        android:letterSpacing="0.1"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_community"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/trending_card"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        />
+
+    </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:tabIconTint="@null"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/search" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/notification" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/profile" />
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+</RelativeLayout>
+
