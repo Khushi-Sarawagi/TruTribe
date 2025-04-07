@@ -53,8 +53,8 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-<!--Questions, Question number and options will be generated dynamically-->
-<!--Even timer, community title and progress bar-->
+    <!--Questions, Question number and options will be generated dynamically-->
+    <!--Even timer, community title and progress bar-->
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
@@ -63,71 +63,71 @@
         android:layout_above="@id/tablayout"
         >
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-
-
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
 
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-<!--Generate the community title dynamically-->
 
 
-            <TextView
-                android:id="@+id/community_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:textSize="20sp"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"/>
-
-<!--Update the timer every second by adding text-->
-            <TextView
-                android:id="@+id/timer_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:textSize="15sp"
-                android:gravity="end"
-                android:textColor="@color/red"
-                app:drawableTopCompat="@drawable/_icon__timer" />
-
-        </LinearLayout>
-
-<!--Update the progress bar dynamically-->
-
-        <ProgressBar
-            android:id="@+id/progress_calculate"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_gravity="center_horizontal"
-            android:max="100"
-            android:progress="20"
-            android:progressDrawable="@drawable/progress_bar"
-            />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
 
-<!--This textview is for the question number to be generated dynamically-->
+                    <!--Generate the community title dynamically-->
+
+
+                    <TextView
+                        android:id="@+id/community_title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/black"/>
+
+                    <!--Update the timer every second by adding text-->
+                    <TextView
+                        android:id="@+id/timer_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:gravity="end"
+                        android:textColor="@color/red"
+                        app:drawableTopCompat="@drawable/_icon__timer" />
+
+                </LinearLayout>
+
+                <!--Update the progress bar dynamically-->
+
+                <ProgressBar
+                    android:id="@+id/progress_calculate"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:max="100"
+                    android:progress="20"
+                    android:progressDrawable="@drawable/progress_bar"
+                    />
+
+
+                <!--This textview is for the question number to be generated dynamically-->
 
 
                 <TextView
@@ -140,15 +140,15 @@
                     android:textSize="25sp"
                     android:textStyle="bold"
 
-                  />
+                    />
 
-<!--            This textview is for the question to be generated dynamically-->
+                <!--            This textview is for the question to be generated dynamically-->
 
                 <TextView
                     android:id="@+id/question"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                   android:layout_gravity="center"
+                    android:layout_gravity="center"
                     android:gravity="center_horizontal"
 
                     android:textColor="@color/black"
@@ -156,77 +156,85 @@
                     />
 
 
-<!--            Options to be generated dynamically-->
+                <!--            Options to be generated dynamically-->
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="30dp">
-
-                <RadioButton
-                    android:id="@+id/option1"
+                <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="30dp">
 
-                    android:button="@null"
+                    <RadioButton
+                        android:id="@+id/option1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:button="@null"
+                        android:gravity="center"
+                        android:background="@drawable/option_box"
+                        android:textSize="20sp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_margin="10dp"/>
+
+                    <RadioButton
+                        android:id="@+id/option2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:button="@null"
+                        android:gravity="center"
+                        android:background="@drawable/option_box"
+                        android:textSize="20sp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_margin="10dp"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/option3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:button="@null"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="@drawable/option_box"/>
+
+                    <RadioButton
+                        android:id="@+id/option4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:button="@null"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:layout_margin="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+
+                        android:background="@drawable/option_box"/>
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/submitBtn"
+                    android:layout_width="340dp"
                     android:gravity="center"
-                    android:background="@drawable/option_box"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"/>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="65dp"
+                    android:backgroundTint="@color/good_green"
 
-                <RadioButton
-                    android:id="@+id/option2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:text="Next"/>
+            </LinearLayout>
 
-                    android:button="@null"
-                    android:gravity="center"
-                    android:background="@drawable/option_box"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"
-                    />
-
-                <RadioButton
-                    android:id="@+id/option3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/option_box"/>
-
-                <RadioButton
-                    android:id="@+id/option4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"
-
-                    android:background="@drawable/option_box"/>
-            </RadioGroup>
-
-            <Button
-                android:id="@+id/submitBtn"
-                android:layout_width="340dp"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_height="65dp"
-                android:backgroundTint="@color/good_green"
-
-                android:text="Next"/>
-        </LinearLayout>
-
-</ScrollView>
+        </ScrollView>
     </FrameLayout>
 
-<!--    This is tab layout-->
+    <!--    This is tab layout-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"

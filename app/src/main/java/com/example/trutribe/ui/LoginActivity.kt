@@ -50,6 +50,9 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@LoginActivity, CommunityPageActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(applicationContext, "Invalid Credentials", Toast.LENGTH_SHORT).show()
                 }
@@ -60,4 +63,5 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
 }

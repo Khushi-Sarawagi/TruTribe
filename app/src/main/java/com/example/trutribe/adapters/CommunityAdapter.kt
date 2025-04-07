@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trutribe.api.UserData
 import com.example.trutribe.models.CommunityModel
 
-class CommunityAdapter (private val communitylist:ArrayList<CommunityModel>):RecyclerView.Adapter<CommunityAdapter.ViewHolderClass>(){
+class CommunityAdapter (private val communitylist:ArrayList<CommunityModel>,private val onItemClick: (CommunityModel) -> Unit ):RecyclerView.Adapter<CommunityAdapter.ViewHolderClass>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
@@ -39,10 +39,13 @@ class CommunityAdapter (private val communitylist:ArrayList<CommunityModel>):Rec
         } else {
             holder.communityImage.setImageResource(R.drawable.placeholder)
         }
+        holder.itemView.setOnClickListener {
+            onItemClick(currentItem)
+        }
     }
 
     class ViewHolderClass(itemView:View):RecyclerView.ViewHolder(itemView) {
-        val communityName:TextView=itemView.findViewById(R.id.card_title)
+        val communityName:TextView=itemView.findViewById(R.id.community_title)
         val communityImage:ImageView=itemView.findViewById(R.id.community_image)
     }
 }
