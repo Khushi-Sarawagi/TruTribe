@@ -169,7 +169,6 @@
                         android:id="@+id/option1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:button="@null"
                         android:gravity="center"
                         android:background="@drawable/option_box"

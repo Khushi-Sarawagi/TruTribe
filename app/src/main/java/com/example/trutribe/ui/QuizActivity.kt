@@ -3,6 +3,7 @@ package com.example.trutribe.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,7 @@ class QuizActivity : AppCompatActivity() {
 
     private var timer: CountDownTimer? = null
     private val timerDuration = 30000L
-    private var communityId: Int = -1
+    private var communityId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +57,15 @@ class QuizActivity : AppCompatActivity() {
         timerText = findViewById(R.id.timer_text)
 
         communityTitleTextView.text = intent.getStringExtra("COMMUNITY_NAME")
-        communityId = intent.getIntExtra("COMMUNITY_ID", -1)
+        communityId = intent.getIntExtra("communityId", -1)
 
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            resetButtonColors()
-            val selectedRadioButton = findViewById<RadioButton>(checkedId)
-            selectedRadioButton.setBackgroundResource(R.drawable.selected_button)
+
+            if(checkedId != -1) {
+                resetButtonColors()
+                val selectedRadioButton = findViewById<RadioButton>(checkedId)
+                selectedRadioButton.setBackgroundResource(R.drawable.selected_button)
+            }
         }
 
         submitButton.setOnClickListener {
@@ -95,6 +99,7 @@ class QuizActivity : AppCompatActivity() {
                     questionList = ArrayList(allQuestions.shuffled().take(totalQuestions))
                     loadNextQuestion()
                 } else {
+
                     Toast.makeText(this@QuizActivity, "Failed to load questions!", Toast.LENGTH_SHORT).show()
                 }
             }
