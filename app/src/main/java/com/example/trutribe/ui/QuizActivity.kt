@@ -34,6 +34,7 @@ class QuizActivity : AppCompatActivity() {
     private var attempts = 3
     private val totalQuestions = 5
     private var selectedOption = ""
+    private var selectedOptionLetter: String = ""
     private var answerSubmitted = false
 
     private var timer: CountDownTimer? = null
@@ -59,6 +60,10 @@ class QuizActivity : AppCompatActivity() {
         communityTitleTextView.text = intent.getStringExtra("COMMUNITY_NAME")
         communityId = intent.getIntExtra("communityId", -1)
 
+        option1.setOnClickListener { selectedOptionLetter = "A" }
+        option2.setOnClickListener { selectedOptionLetter = "B" }
+        option3.setOnClickListener { selectedOptionLetter = "C" }
+        option4.setOnClickListener { selectedOptionLetter = "D" }
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
 
             if(checkedId != -1) {
@@ -121,6 +126,8 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun loadNextQuestion() {
+        selectedOptionLetter = ""
+
         if (currentQuestionIndex < questionList.size) {
             val question = questionList[currentQuestionIndex]
             questionNumberTextView.text = "Question ${currentQuestionIndex + 1} of $totalQuestions"
@@ -172,7 +179,14 @@ class QuizActivity : AppCompatActivity() {
         val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
         resetButtonColors()
 
-        if (selectedOption == correctOption) {
+        if (selectedOptionLetter == null) {
+            // No option selected
+            highlightCorrectAnswer(correctOption)
+            disableOptions()
+            return
+        }
+
+        if (selectedOptionLetter.equals(correctOption.trim(), ignoreCase = true)) {
             selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
             score++
         } else {
@@ -185,17 +199,17 @@ class QuizActivity : AppCompatActivity() {
 
 
 
-
     private fun highlightCorrectAnswer(correctOption: String) {
-        val correctButton = when (correctOption) {
-            option1.text.toString() -> option1
-            option2.text.toString() -> option2
-            option3.text.toString() -> option3
-            option4.text.toString() -> option4
-            else -> null
+        when (correctOption.trim().uppercase()) {
+            "A" -> option1.setBackgroundResource(R.drawable.correct_button)
+            "B" -> option2.setBackgroundResource(R.drawable.correct_button)
+            "C" -> option3.setBackgroundResource(R.drawable.correct_button)
+            "D" -> option4.setBackgroundResource(R.drawable.correct_button)
+            else ->null
         }
-        correctButton?.setBackgroundResource(R.drawable.correct_button)
     }
+
+
 
     private fun disableOptions() {
         option1.isEnabled = false
