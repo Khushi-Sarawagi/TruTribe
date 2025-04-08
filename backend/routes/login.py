@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import psycopg2
 import bcrypt
 
-app = Flask(__name__)
+app = Flask("login",__name__)
 
 def connect_db():
     return psycopg2.connect(
