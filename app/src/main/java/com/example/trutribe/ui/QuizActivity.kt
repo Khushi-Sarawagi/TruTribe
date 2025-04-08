@@ -146,11 +146,11 @@ class QuizActivity : AppCompatActivity() {
 
 
             questionNumberTextView.text = "Question ${currentQuestionIndex + 1} of $totalQuestions"
-            questionTextView.text = question.questionText
-            option1.text = question.option1
-            option2.text = question.option2
-            option3.text = question.option3
-            option4.text = question.option4
+            questionTextView.text = question.question_text
+            option1.text = question.option_a
+            option2.text = question.option_b
+            option3.text = question.option_c
+            option4.text = question.option_d
 
 
             radioGroup.clearCheck()
@@ -162,7 +162,7 @@ class QuizActivity : AppCompatActivity() {
 
 
             submitButton.setOnClickListener {
-                checkAnswer(question.correctOption)
+                checkAnswer(question.correct_option)
             }
         } else {
             checkResults()

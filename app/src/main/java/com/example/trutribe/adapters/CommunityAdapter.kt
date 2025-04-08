@@ -25,11 +25,11 @@ class CommunityAdapter (private val communitylist:ArrayList<CommunityModel>,priv
 
     override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
         val currentItem=communitylist[position]
-        holder.communityName.text=currentItem.dataTitle
+        holder.communityName.text=currentItem.name
 
         val context = holder.itemView.context
         val resourceId = context.resources.getIdentifier(
-            currentItem.dataImage,
+            currentItem.icon_url,
             "drawable",
             context.packageName
         )

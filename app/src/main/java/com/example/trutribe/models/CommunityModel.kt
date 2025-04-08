@@ -1,7 +1,9 @@
 package com.example.trutribe.models
 
 class CommunityModel (
-    val dataTitle: String = "",
-    val dataImage: String = "",
-    val dataId: String = ""
+
+    val name: String = "",
+    val icon_url: String = "",
+    val id: String = "",
+    val color: String = ""
     )

@@ -2,6 +2,7 @@ package com.example.trutribe.ui
 
 import android.os.Bundle
 import android.content.Intent
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -9,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trutribe.R
 import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.api.ApiResponse
-import com.example.trutribe.api.UserData
+import com.example.trutribe.api.LoginData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
     // Ensure this function is inside the class
     private fun performLogin(username: String, password: String) {
-        val request = UserData(username, password)
+        val request = LoginData(username, password)
 
         RetrofitClient.instance.login(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {

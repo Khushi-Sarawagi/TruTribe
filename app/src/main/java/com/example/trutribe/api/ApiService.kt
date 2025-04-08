@@ -14,12 +14,12 @@ interface ApiService {
     fun signup(@Body userData: UserData): Call<ApiResponse>
 
     @POST("/login")
-    fun login(@Body userData: UserData): Call<ApiResponse>
+    fun login(@Body userData: LoginData): Call<ApiResponse>
 
-    @GET("trending")
+    @GET("/communities/trending")
     fun getTrendingCommunities(): Call<List<CommunityModel>>
 
-    @GET("suggested")
+    @GET("/communities/suggested")
     fun getSuggestedCommunities(): Call<List<CommunityModel>>
 
     @GET("my_communities")

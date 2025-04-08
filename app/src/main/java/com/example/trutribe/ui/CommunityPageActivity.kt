@@ -2,6 +2,7 @@ package com.example.trutribe.ui
 
 import android.os.Bundle
 import android.content.Intent
+import android.util.Log
 import android.widget.TableLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,14 +45,16 @@ class CommunityPageActivity : AppCompatActivity() {
     }
 
     private fun fetchTrendingCommunities() {
+
         val call = RetrofitClient.instance.getTrendingCommunities()
 
         call.enqueue(object : Callback<List<CommunityModel>> {
             override fun onResponse(call: Call<List<CommunityModel>>, response: Response<List<CommunityModel>>) {
                 if (response.isSuccessful) {
                     val trendingList = response.body() ?: ArrayList()
+
                     trendingAdapter = CommunityAdapter(ArrayList(trendingList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.dataId)
+                        launchQuizActivity(selectedCommunity.id)
                     }
                     trendingRecyclerView.adapter = trendingAdapter
                 } else {
@@ -73,7 +76,7 @@ class CommunityPageActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val suggestedList = response.body() ?: ArrayList()
                     suggestedAdapter = CommunityAdapter(ArrayList(suggestedList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.dataId)
+                        launchQuizActivity(selectedCommunity.id)
                     }
                     suggestedRecyclerView.adapter = suggestedAdapter
                 } else {
@@ -95,7 +98,7 @@ class CommunityPageActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val myCommunityList = response.body() ?: ArrayList()
                     myCommunityAdapter = CommunityAdapter(ArrayList(myCommunityList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.dataId)
+                        launchQuizActivity(selectedCommunity.id)
                     }
                     myCommunityRecyclerView.adapter = myCommunityAdapter
                 }

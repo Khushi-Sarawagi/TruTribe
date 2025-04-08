@@ -2,6 +2,7 @@ package com.example.trutribe.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -36,7 +37,8 @@ class SignupActivity : AppCompatActivity() {
             val confirmPassword = confirmPasswordInput.text.toString()
 
             if (password == confirmPassword) {
-                val userData = UserData(email, password)
+                val username = email.substringBefore("@")
+                val userData = UserData(username,email, password)
                 registerUser(userData)
             } else {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
