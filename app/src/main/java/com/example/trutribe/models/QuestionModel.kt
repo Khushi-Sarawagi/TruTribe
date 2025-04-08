@@ -9,8 +9,8 @@ data class QuestionModel(
     val correct_option: String
 )
 data class Options(
-    @SerializedName("D") val a: String,
-    @SerializedName("D") val b: String,
-    @SerializedName("D") val c: String,
+    @SerializedName("A") val a: String,
+    @SerializedName("B") val b: String,
+    @SerializedName("C") val c: String,
     @SerializedName("D") val d: String
 )
