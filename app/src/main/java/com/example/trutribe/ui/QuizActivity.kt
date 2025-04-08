@@ -76,10 +76,14 @@ class QuizActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please select an option!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                currentQuestionIndex++
-                loadNextQuestion()
-                answerSubmitted = false
-                submitButton.text = "Submit"
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    currentQuestionIndex++
+                    loadNextQuestion()
+                    answerSubmitted = false
+                    submitButton.text = "Submit"
+                } else {
+                    checkResults()  // Directly check results without increasing index
+                }
             }
         }
 
@@ -92,6 +96,12 @@ class QuizActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<QuestionModel>>, response: Response<List<QuestionModel>>) {
                 if (response.isSuccessful) {
                     val allQuestions = response.body() ?: ArrayList()
+                    if (allQuestions.size < totalQuestions) {
+                        Toast.makeText(this@QuizActivity, "Not enough questions to start the quiz.", Toast.LENGTH_LONG).show()
+                        navigateToCommunityPage()
+                        return
+                    }
+
                     questionList = ArrayList(allQuestions.shuffled().take(totalQuestions))
                     loadNextQuestion()
                 } else {
@@ -146,28 +156,30 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun updateProgressBar() {
-        val progress = ((currentQuestionIndex.toFloat() / totalQuestions) * 100).toInt()
+        val progress = (((currentQuestionIndex+1).toFloat() / totalQuestions) * 100).toInt()
         progressBar.progress = progress
     }
 
     private fun checkAnswer(correctOption: String) {
         timer?.cancel()
 
-        val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+        val selectedId = radioGroup.checkedRadioButtonId
+        val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
         resetButtonColors()
 
         if (selectedOption == correctOption) {
             selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
             score++
         } else {
-            if (selectedRadioButton != null) {
-                selectedRadioButton.setBackgroundResource(R.drawable.wrong_button)
-            }
+            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
             highlightCorrectAnswer(correctOption)
         }
 
         disableOptions()
     }
+
+
+
 
     private fun highlightCorrectAnswer(correctOption: String) {
         val correctButton = when (correctOption) {
