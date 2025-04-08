@@ -120,10 +120,10 @@ class QuizActivity : AppCompatActivity() {
             val question = questionList[currentQuestionIndex]
             questionNumberTextView.text = "Question ${currentQuestionIndex + 1} of $totalQuestions"
             questionTextView.text = question.question_text
-            option1.text = question.option_a
-            option2.text = question.option_b
-            option3.text = question.option_c
-            option4.text = question.option_d
+            option1.text = question.options.a
+            option2.text = question.options.b
+            option3.text = question.options.c
+            option4.text = question.options.d
 
             radioGroup.clearCheck()
             enableOptions()

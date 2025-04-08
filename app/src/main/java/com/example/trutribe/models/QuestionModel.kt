@@ -5,9 +5,12 @@ data class QuestionModel(
     val quiz_id: Int,
     val community_id: Int,
     val question_text: String,
-    val option_a: String,
-    val option_b: String,
-    val option_c: String,
-    val option_d: String,
+    val options:Options,
     val correct_option: String
+)
+data class Options(
+    val a: String,
+    val b: String,
+    val c: String,
+    val d: String
 )
