@@ -4,13 +4,13 @@ import os
 
 app = Flask(__name__)
 
-# PostgreSQL connection URI
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://communityuser:community@localhost/trutribeCommunities'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Database model
+
 class Community(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -25,7 +25,6 @@ class Community(db.Model):
             "color": self.color
         }
 
-# Routes
 @app.route('/')
 def home():
     return "TruTribe Communities"
