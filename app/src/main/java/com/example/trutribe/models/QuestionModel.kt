@@ -1,5 +1,5 @@
 package com.example.trutribe.models
-
+import com.google.gson.annotations.SerializedName
 data class QuestionModel(
     val question_id: Int,
     val quiz_id: Int,
@@ -9,8 +9,8 @@ data class QuestionModel(
     val correct_option: String
 )
 data class Options(
-    val a: String,
-    val b: String,
-    val c: String,
-    val d: String
+    @SerializedName("D") val a: String,
+    @SerializedName("D") val b: String,
+    @SerializedName("D") val c: String,
+    @SerializedName("D") val d: String
 )
