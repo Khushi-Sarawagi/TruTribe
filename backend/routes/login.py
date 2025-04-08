@@ -6,11 +6,11 @@ app = Flask("login",__name__)
 
 def connect_db():
     return psycopg2.connect(
-        dbname="  ",
-        user="  ",
-        password="  ",
-        host="  ",
-        port="  "
+       dbname="signup_portal",
+        user="payel",
+        password="pay187",
+        host="localhost",
+        port="5432"
     )
 
 @app.route('/login', methods=['POST'])
