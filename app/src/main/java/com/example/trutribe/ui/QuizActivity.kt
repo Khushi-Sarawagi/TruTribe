@@ -71,7 +71,7 @@ class QuizActivity : AppCompatActivity() {
                     selectedOption = selectedRadioButton.text.toString()
                     checkAnswer(questionList[currentQuestionIndex].correct_option)
                     answerSubmitted = true
-                    submitButton.text = "Next"
+                    submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
                 } else {
                     Toast.makeText(this, "Please select an option!", Toast.LENGTH_SHORT).show()
                 }
@@ -117,6 +117,7 @@ class QuizActivity : AppCompatActivity() {
 
             radioGroup.clearCheck()
             enableOptions()
+            resetButtonColors()
             startTimer()
             updateProgressBar()
         } else {
@@ -134,7 +135,12 @@ class QuizActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 timerText.text = "Time's up!"
-                checkAnswer("")
+                val correctOption = questionList[currentQuestionIndex].correct_option
+                val selectedId = radioGroup.checkedRadioButtonId
+                selectedOption = if (selectedId != -1) findViewById<RadioButton>(selectedId).text.toString() else ""
+                checkAnswer(correctOption)
+                answerSubmitted = true
+                submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
             }
         }.start()
     }
@@ -146,6 +152,7 @@ class QuizActivity : AppCompatActivity() {
 
     private fun checkAnswer(correctOption: String) {
         timer?.cancel()
+
         val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
         resetButtonColors()
 
@@ -153,7 +160,9 @@ class QuizActivity : AppCompatActivity() {
             selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
             score++
         } else {
-            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
+            if (selectedRadioButton != null) {
+                selectedRadioButton.setBackgroundResource(R.drawable.wrong_button)
+            }
             highlightCorrectAnswer(correctOption)
         }
 
@@ -162,10 +171,10 @@ class QuizActivity : AppCompatActivity() {
 
     private fun highlightCorrectAnswer(correctOption: String) {
         val correctButton = when (correctOption) {
-            option1.text -> option1
-            option2.text -> option2
-            option3.text -> option3
-            option4.text -> option4
+            option1.text.toString() -> option1
+            option2.text.toString() -> option2
+            option3.text.toString() -> option3
+            option4.text.toString() -> option4
             else -> null
         }
         correctButton?.setBackgroundResource(R.drawable.correct_button)
@@ -183,7 +192,6 @@ class QuizActivity : AppCompatActivity() {
         option2.isEnabled = true
         option3.isEnabled = true
         option4.isEnabled = true
-        resetButtonColors()
     }
 
     private fun resetButtonColors() {
