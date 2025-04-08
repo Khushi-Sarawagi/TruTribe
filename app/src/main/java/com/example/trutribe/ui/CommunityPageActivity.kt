@@ -2,6 +2,7 @@ package com.example.trutribe.ui
 
 import android.os.Bundle
 import android.content.Intent
+
 import android.util.Log
 import android.widget.TableLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -30,8 +31,33 @@ class CommunityPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community)
-
         val bottomNavBar = findViewById<TabLayout>(R.id.tablayout)
+        bottomNavBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> {
+                        startActivity(Intent(this@CommunityPageActivity, HomeActivity::class.java))
+                        finish()
+                    }
+                    1 -> {
+                        // This is Community Page – already here
+                    }
+                    2 -> {
+                        startActivity(Intent(this@CommunityPageActivity, NotificationActivity::class.java))
+                        finish()
+                    }
+                    3 -> {
+                        startActivity(Intent(this@CommunityPageActivity, ProfileActivity::class.java))
+                        finish()
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+
         trendingRecyclerView = findViewById(R.id.trending_community)
         suggestedRecyclerView = findViewById(R.id.suggested_community)
         myCommunityRecyclerView = findViewById(R.id.my_community)
@@ -110,9 +136,9 @@ class CommunityPageActivity : AppCompatActivity() {
         })
     }
 
-    private fun launchQuizActivity(selectedQuizId: String) {
+    private fun launchQuizActivity(selectedCommunityId: Int) {
         val intent = Intent(this, QuizActivity::class.java)
-        intent.putExtra("quizId", selectedQuizId)
+        intent.putExtra("communityId", selectedCommunityId)
         startActivity(intent)
     }
 }

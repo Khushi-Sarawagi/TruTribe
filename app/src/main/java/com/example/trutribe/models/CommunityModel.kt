@@ -4,6 +4,6 @@ class CommunityModel (
 
     val name: String = "",
     val icon_url: String = "",
-    val id: String = "",
+    val id: Int,
     val color: String = ""
     )

@@ -6,6 +6,8 @@ import retrofit2.http.POST
 import retrofit2.http.GET
 import com.example.trutribe.models.QuestionModel
 import com.example.trutribe.models.CommunityModel
+import retrofit2.http.Path
+
 
 
 // API endpoints
@@ -25,6 +27,11 @@ interface ApiService {
     @GET("my_communities")
     fun getMyCommunities(): Call<List<CommunityModel>>
 
-    @GET("quiz/questions")
-    fun getQuizQuestions(): Call<List<QuestionModel>>
+    //@GET("quiz/questions")
+    //fun getQuizQuestions(): Call<List<QuestionModel>>
+
+    @GET("quiz/{community_id}")
+    fun getQuizQuestions(
+        @Path("community_id") communityId: Int
+    ): Call<List<QuestionModel>>
 }

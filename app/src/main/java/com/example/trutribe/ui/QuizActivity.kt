@@ -1,10 +1,8 @@
 package com.example.trutribe.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -35,14 +33,15 @@ class QuizActivity : AppCompatActivity() {
     private var attempts = 3
     private val totalQuestions = 5
     private var selectedOption = ""
+    private var answerSubmitted = false
 
     private var timer: CountDownTimer? = null
     private val timerDuration = 30000L
+    private var communityId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
-
 
         communityTitleTextView = findViewById(R.id.community_title)
         questionTextView = findViewById(R.id.question)
@@ -56,81 +55,47 @@ class QuizActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progress_calculate)
         timerText = findViewById(R.id.timer_text)
 
+        communityTitleTextView.text = intent.getStringExtra("COMMUNITY_NAME")
+        communityId = intent.getIntExtra("COMMUNITY_ID", -1)
 
-        val communityName = intent.getStringExtra("COMMUNITY_NAME")
-        communityTitleTextView.text = communityName
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            resetButtonColors()
+            val selectedRadioButton = findViewById<RadioButton>(checkedId)
+            selectedRadioButton.setBackgroundResource(R.drawable.selected_button)
+        }
+
+        submitButton.setOnClickListener {
+            val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+            if (!answerSubmitted) {
+                if (selectedRadioButton != null) {
+                    selectedOption = selectedRadioButton.text.toString()
+                    checkAnswer(questionList[currentQuestionIndex].correct_option)
+                    answerSubmitted = true
+                    submitButton.text = "Next"
+                } else {
+                    Toast.makeText(this, "Please select an option!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                currentQuestionIndex++
+                loadNextQuestion()
+                answerSubmitted = false
+                submitButton.text = "Submit"
+            }
+        }
 
         fetchQuestions()
     }
 
-    /*private fun fetchQuestions() {
-
-        questionList = arrayListOf(
-            QuestionModel(
-                "What is Kotlin?",
-                "A programming language",
-                "A database",
-                "An IDE",
-                "A framework",
-                "A programming language"
-            ),
-            QuestionModel(
-                "Which company developed Android?",
-                "Apple",
-                "Google",
-                "Microsoft",
-                "Samsung",
-                "Google"
-            ),
-            QuestionModel(
-                "What does API stand for?",
-                "Advanced Programming Interface",
-                "Application Programming Interface",
-                "Automated Program Integration",
-                "Android Programming Interface",
-                "Application Programming Interface"
-            ),
-            QuestionModel(
-                "What is Android Studio?",
-                "Text Editor",
-                "IDE",
-                "Programming Language",
-                "Database",
-                "IDE"
-            ),
-            QuestionModel(
-                "What is the extension of Kotlin files?",
-                ".java",
-                ".kt",
-                ".xml",
-                ".kotlin",
-                ".kt"
-            )
-        )
-
-        // Shuffle and take 5 random questions
-        questionList.shuffle()
-        loadNextQuestion()
-    }*/
     private fun fetchQuestions() {
-        val call = RetrofitClient.instance.getQuizQuestions()
+        val call = RetrofitClient.instance.getQuizQuestions(communityId)
         call.enqueue(object : Callback<List<QuestionModel>> {
-            override fun onResponse(
-                call: Call<List<QuestionModel>>,
-                response: Response<List<QuestionModel>>
-            ) {
+            override fun onResponse(call: Call<List<QuestionModel>>, response: Response<List<QuestionModel>>) {
                 if (response.isSuccessful) {
                     val allQuestions = response.body() ?: ArrayList()
-
-                    // Shuffle and take 5 random questions
                     questionList = ArrayList(allQuestions.shuffled().take(totalQuestions))
                     loadNextQuestion()
                 } else {
-                    Toast.makeText(
-                        this@QuizActivity,
-                        "Failed to load questions!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this@QuizActivity, "Failed to load questions!", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -143,8 +108,6 @@ class QuizActivity : AppCompatActivity() {
     private fun loadNextQuestion() {
         if (currentQuestionIndex < questionList.size) {
             val question = questionList[currentQuestionIndex]
-
-
             questionNumberTextView.text = "Question ${currentQuestionIndex + 1} of $totalQuestions"
             questionTextView.text = question.question_text
             option1.text = question.option_a
@@ -152,18 +115,10 @@ class QuizActivity : AppCompatActivity() {
             option3.text = question.option_c
             option4.text = question.option_d
 
-
             radioGroup.clearCheck()
             enableOptions()
-
-
             startTimer()
             updateProgressBar()
-
-
-            submitButton.setOnClickListener {
-                checkAnswer(question.correct_option)
-            }
         } else {
             checkResults()
         }
@@ -175,16 +130,13 @@ class QuizActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsRemaining = millisUntilFinished / 1000
                 timerText.text = "Time Left: ${secondsRemaining}s"
-                val progress = ((millisUntilFinished.toFloat() / timerDuration) * 100).toInt()
-                progressBar.progress = progress
             }
 
             override fun onFinish() {
                 timerText.text = "Time's up!"
                 checkAnswer("")
             }
-        }
-        timer?.start()
+        }.start()
     }
 
     private fun updateProgressBar() {
@@ -193,29 +145,16 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun checkAnswer(correctOption: String) {
+        timer?.cancel()
         val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-        if (selectedRadioButton != null) {
-            resetButtonColors()
-            selectedRadioButton.setBackgroundResource(R.drawable.selected_button)
+        resetButtonColors()
 
-            submitButton.text = "Next"
-            submitButton.setOnClickListener {
-                if (selectedOption == correctOption) {
-                    selectedRadioButton.setBackgroundResource(R.drawable.correct_button)
-                    score++
-                } else {
-                    selectedRadioButton.setBackgroundResource(R.drawable.wrong_button)
-                    highlightCorrectAnswer(correctOption)
-                }
-
-                submitButton.postDelayed({
-                    currentQuestionIndex++
-                    loadNextQuestion()
-                }, 1000)
-            }
+        if (selectedOption == correctOption) {
+            selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
+            score++
         } else {
-            Toast.makeText(this, "Please select an option!", Toast.LENGTH_SHORT).show()
-            return
+            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
+            highlightCorrectAnswer(correctOption)
         }
 
         disableOptions()
@@ -254,11 +193,6 @@ class QuizActivity : AppCompatActivity() {
         option4.setBackgroundResource(R.drawable.option_box)
     }
 
-    private fun highlightSelectedOption(selectedRadioButton: RadioButton) {
-        resetButtonColors()
-        selectedRadioButton.setBackgroundResource(R.drawable.selected_button)  // New blue color for selected option
-    }
-
     private fun checkResults() {
         if (score >= 3) {
             showPassDialog()
@@ -274,30 +208,28 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun showPassDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Congratulations!")
-        builder.setMessage("You passed the quiz. Join the community now!")
-        builder.setPositiveButton("Join") { _, _ ->
-            navigateToCommunityPage()
-        }
-        builder.setCancelable(false)
-        builder.show()
+        AlertDialog.Builder(this)
+            .setTitle("Congratulations!")
+            .setMessage("You passed the quiz. Join the community now!")
+            .setPositiveButton("Join") { _, _ -> navigateToCommunityPage() }
+            .setCancelable(false)
+            .show()
     }
 
     private fun showFailDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Try Again")
-        builder.setMessage("You didn't score enough. Try again or come back later.")
-        builder.setPositiveButton("Try Again") { _, _ ->
-            currentQuestionIndex = 0
-            score = 0
-            fetchQuestions()
-        }
-        builder.setNegativeButton("Try Later") { _, _ ->
-            navigateToCommunityPage()
-        }
-        builder.setCancelable(false)
-        builder.show()
+        AlertDialog.Builder(this)
+            .setTitle("Try Again")
+            .setMessage("You didn't score enough. Try again or come back later.")
+            .setPositiveButton("Try Again") { _, _ ->
+                currentQuestionIndex = 0
+                score = 0
+                fetchQuestions()
+            }
+            .setNegativeButton("Try Later") { _, _ ->
+                navigateToCommunityPage()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     private fun navigateToCommunityPage() {
