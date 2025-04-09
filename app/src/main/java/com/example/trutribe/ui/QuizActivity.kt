@@ -33,7 +33,7 @@ class QuizActivity : AppCompatActivity() {
     private var score = 0
     private var attempts = 3
     private val totalQuestions = 5
-    private var selectedOption = ""
+
     private var answerSubmitted = false
 
     private var timer: CountDownTimer? = null
@@ -72,7 +72,7 @@ class QuizActivity : AppCompatActivity() {
             val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
             if (!answerSubmitted) {
                 if (selectedRadioButton != null) {
-                    selectedOption = selectedRadioButton.text.toString()
+
                     checkAnswer(questionList[currentQuestionIndex].correct_option)
                     answerSubmitted = true
                     submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
@@ -152,7 +152,7 @@ class QuizActivity : AppCompatActivity() {
                 timerText.text = "Time's up!"
                 val correctOption = questionList[currentQuestionIndex].correct_option
                 val selectedId = radioGroup.checkedRadioButtonId
-                selectedOption = if (selectedId != -1) findViewById<RadioButton>(selectedId).text.toString() else ""
+
                 checkAnswer(correctOption)
                 answerSubmitted = true
                 submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
