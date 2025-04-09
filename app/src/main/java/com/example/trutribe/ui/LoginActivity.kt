@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
         RetrofitClient.instance.login(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
+                    Log.d("Login", "onResponse: Success")
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, CommunityPageActivity::class.java)
                     startActivity(intent)

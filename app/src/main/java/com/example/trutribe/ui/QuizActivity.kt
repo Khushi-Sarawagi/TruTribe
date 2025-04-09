@@ -73,7 +73,7 @@ class QuizActivity : AppCompatActivity() {
             if (!answerSubmitted) {
                 if (selectedRadioButton != null) {
                     selectedOption = selectedRadioButton.text.toString()
-                    checkAnswer(questionList[currentQuestionIndex].correct_option)
+                    checkAnswer()
                     answerSubmitted = true
                     submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
                 } else {
@@ -141,6 +141,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun startTimer() {
+        Log.i("Next", "next btn he bc")
         timer?.cancel()
         timer = object : CountDownTimer(timerDuration, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -150,23 +151,34 @@ class QuizActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 timerText.text = "Time's up!"
-                val correctOption = questionList[currentQuestionIndex].correct_option
                 val selectedId = radioGroup.checkedRadioButtonId
                 selectedOption = if (selectedId != -1) findViewById<RadioButton>(selectedId).text.toString() else ""
-                checkAnswer(correctOption)
+                checkAnswer()
                 answerSubmitted = true
                 submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
             }
         }.start()
     }
 
+
+
     private fun updateProgressBar() {
         val progress = (((currentQuestionIndex+1).toFloat() / totalQuestions) * 100).toInt()
         progressBar.progress = progress
     }
 
-    private fun checkAnswer(correctOption: String) {
+    private fun checkAnswer() {
         timer?.cancel()
+        Log.i("Check hone lage", "haaaa")
+
+        val optionsMap = mapOf(
+            "A" to questionList[currentQuestionIndex].options.a,
+            "B" to questionList[currentQuestionIndex].options.b,
+            "C" to questionList[currentQuestionIndex].options.c,
+            "D" to questionList[currentQuestionIndex].options.d
+        )
+        val key = questionList[currentQuestionIndex].correct_option
+        val correctOption = optionsMap[key]
 
         val selectedId = radioGroup.checkedRadioButtonId
         val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
@@ -177,14 +189,11 @@ class QuizActivity : AppCompatActivity() {
             score++
         } else {
             selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
-            highlightCorrectAnswer(correctOption)
+            highlightCorrectAnswer(correctOption?: "")
         }
 
         disableOptions()
     }
-
-
-
 
     private fun highlightCorrectAnswer(correctOption: String) {
         val correctButton = when (correctOption) {
