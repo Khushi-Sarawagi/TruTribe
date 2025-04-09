@@ -170,7 +170,8 @@ class QuizActivity : AppCompatActivity() {
 
         val selectedId = radioGroup.checkedRadioButtonId
         val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
-        resetButtonColors()
+        // Removed resetButtonColors() here so the blue (selected) state is not overwritten
+        // resetButtonColors()
 
         val selectedOptionKey = when (selectedRadioButton) {
             option1 -> "A"
@@ -190,6 +191,31 @@ class QuizActivity : AppCompatActivity() {
 
         disableOptions()
     }
+    /*private fun checkAnswer(correctOption: String) {
+        timer?.cancel()
+
+        val selectedId = radioGroup.checkedRadioButtonId
+        val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
+        resetButtonColors()
+
+        val selectedOptionKey = when (selectedRadioButton) {
+            option1 -> "A"
+            option2 -> "B"
+            option3 -> "C"
+            option4 -> "D"
+            else -> ""
+        }
+
+        if (selectedOptionKey == correctOption) {
+            selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
+            score++
+        } else {
+            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
+            highlightCorrectAnswer(correctOption)
+        }
+
+        disableOptions()
+    }*/
     /*private fun checkAnswer(correctOption: String) {
         timer?.cancel()
 
