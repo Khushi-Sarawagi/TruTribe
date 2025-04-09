@@ -33,7 +33,7 @@ class QuizActivity : AppCompatActivity() {
     private var score = 0
     private var attempts = 3
     private val totalQuestions = 5
-
+    private var selectedOption = ""
     private var answerSubmitted = false
 
     private var timer: CountDownTimer? = null
@@ -72,7 +72,7 @@ class QuizActivity : AppCompatActivity() {
             val selectedRadioButton = findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
             if (!answerSubmitted) {
                 if (selectedRadioButton != null) {
-
+                    selectedOption = selectedRadioButton.text.toString()
                     checkAnswer(questionList[currentQuestionIndex].correct_option)
                     answerSubmitted = true
                     submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
@@ -152,7 +152,7 @@ class QuizActivity : AppCompatActivity() {
                 timerText.text = "Time's up!"
                 val correctOption = questionList[currentQuestionIndex].correct_option
                 val selectedId = radioGroup.checkedRadioButtonId
-
+                selectedOption = if (selectedId != -1) findViewById<RadioButton>(selectedId).text.toString() else ""
                 checkAnswer(correctOption)
                 answerSubmitted = true
                 submitButton.text = if (currentQuestionIndex == totalQuestions - 1) "Finish" else "Next"
@@ -170,57 +170,6 @@ class QuizActivity : AppCompatActivity() {
 
         val selectedId = radioGroup.checkedRadioButtonId
         val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
-        // Removed resetButtonColors() here so the blue (selected) state is not overwritten
-        // resetButtonColors()
-
-        val selectedOptionKey = when (selectedRadioButton) {
-            option1 -> "A"
-            option2 -> "B"
-            option3 -> "C"
-            option4 -> "D"
-            else -> ""
-        }
-
-        if (selectedOptionKey == correctOption) {
-            selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
-            score++
-        } else {
-            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
-            highlightCorrectAnswer(correctOption)
-        }
-
-        disableOptions()
-    }
-    /*private fun checkAnswer(correctOption: String) {
-        timer?.cancel()
-
-        val selectedId = radioGroup.checkedRadioButtonId
-        val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
-        resetButtonColors()
-
-        val selectedOptionKey = when (selectedRadioButton) {
-            option1 -> "A"
-            option2 -> "B"
-            option3 -> "C"
-            option4 -> "D"
-            else -> ""
-        }
-
-        if (selectedOptionKey == correctOption) {
-            selectedRadioButton?.setBackgroundResource(R.drawable.correct_button)
-            score++
-        } else {
-            selectedRadioButton?.setBackgroundResource(R.drawable.wrong_button)
-            highlightCorrectAnswer(correctOption)
-        }
-
-        disableOptions()
-    }*/
-    /*private fun checkAnswer(correctOption: String) {
-        timer?.cancel()
-
-        val selectedId = radioGroup.checkedRadioButtonId
-        val selectedRadioButton = if (selectedId != -1) findViewById<RadioButton>(selectedId) else null
         resetButtonColors()
 
         if (selectedOption == correctOption) {
@@ -232,20 +181,12 @@ class QuizActivity : AppCompatActivity() {
         }
 
         disableOptions()
-    }*/
-
-    private fun highlightCorrectAnswer(correctOption: String) {
-        val correctButton = when (correctOption) {
-            "A" -> option1
-            "B" -> option2
-            "C" -> option3
-            "D" -> option4
-            else -> null
-        }
-        correctButton?.setBackgroundResource(R.drawable.correct_button)
     }
 
-    /*private fun highlightCorrectAnswer(correctOption: String) {
+
+
+
+    private fun highlightCorrectAnswer(correctOption: String) {
         val correctButton = when (correctOption) {
             option1.text.toString() -> option1
             option2.text.toString() -> option2
@@ -254,7 +195,7 @@ class QuizActivity : AppCompatActivity() {
             else -> null
         }
         correctButton?.setBackgroundResource(R.drawable.correct_button)
-    }*/
+    }
 
     private fun disableOptions() {
         option1.isEnabled = false
