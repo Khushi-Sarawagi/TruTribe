@@ -6,6 +6,9 @@ import retrofit2.http.POST
 import retrofit2.http.GET
 import com.example.trutribe.models.QuestionModel
 import com.example.trutribe.models.CommunityModel
+import com.example.trutribe.models.JoinRequest
+
+
 
 import retrofit2.http.Path
 
@@ -37,4 +40,7 @@ interface ApiService {
     fun getQuizQuestions(
         @Path("community_id") communityId: Int
     ): Call<List<QuestionModel>>
+
+    @POST("/join_community")
+       fun joinCommunity(@Body request: JoinRequest): Call<ApiResponse>
 }

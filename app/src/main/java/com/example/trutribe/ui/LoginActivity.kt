@@ -1,5 +1,6 @@
 package com.example.trutribe.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.content.Intent
 import android.util.Log
@@ -11,6 +12,7 @@ import com.example.trutribe.R
 import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.api.ApiResponse
 import com.example.trutribe.api.LoginData
+import com.example.trutribe.models.JoinRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +52,10 @@ class LoginActivity : AppCompatActivity() {
         RetrofitClient.instance.login(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
+                    val userId = response.body()?.userId ?: -1
+                    val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                    sharedPref.edit().putInt("userId", userId).apply()
+
                     Log.d("Login", "onResponse: Success")
                     Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, CommunityPageActivity::class.java)

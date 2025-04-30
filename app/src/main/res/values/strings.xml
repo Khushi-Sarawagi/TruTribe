@@ -39,4 +39,6 @@
     <string name="not_passed">You have not passsed the quiz. You Scored</string>
     <string name="back">Back</string>
     <string name="try_again">Try Again</string>
+    <string name="community_banner">Community Banner</string>
+
 </resources>

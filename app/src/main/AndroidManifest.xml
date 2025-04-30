@@ -33,6 +33,8 @@
             android:exported="false"/>
         <activity android:name=".ui.QuizActivity"
             android:exported="false"/>
+        <activity android:name=".ui.JoinedCommunityActivity" />
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.trutribe.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,7 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trutribe.R
 import com.example.trutribe.models.QuestionModel
+import com.example.trutribe.models.JoinRequest
 import com.example.trutribe.api.RetrofitClient
+import com.example.trutribe.api.ApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -245,7 +248,8 @@ class QuizActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Congratulations!")
             .setMessage("You passed the quiz. Join the community now!")
-            .setPositiveButton("Join") { _, _ -> navigateToCommunityPage() }
+            .setPositiveButton("Join") { _, _ -> joinCommunityAfterQuiz() }
+
             .setCancelable(false)
             .show()
     }
@@ -271,4 +275,45 @@ class QuizActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+
+    private fun joinCommunityAfterQuiz() {
+        val sharedPref = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPref.getInt("userId", -1)
+
+
+        val req = JoinRequest(userId,communityId)
+
+        RetrofitClient.instance.joinCommunity(req)
+            .enqueue(object : Callback<ApiResponse> {
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "You’ve joined community #$communityId!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@QuizActivity,
+                            "Join failed (code ${response.code()})",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    finish()
+                }
+
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    Toast.makeText(
+                        this@QuizActivity,
+                        "Network error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }
+            })
+    }
+
+
 }

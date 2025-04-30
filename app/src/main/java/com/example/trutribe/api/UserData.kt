@@ -12,5 +12,6 @@ data class LoginData(
 )
 
 data class ApiResponse(
-    val message: String
+    val message: String,
+    val userId: Int? = null
 )

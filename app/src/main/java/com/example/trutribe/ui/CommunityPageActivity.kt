@@ -2,22 +2,20 @@ package com.example.trutribe.ui
 
 import android.os.Bundle
 import android.content.Intent
-
 import android.util.Log
 import android.widget.TableLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trutribe.R
-import com.google.android.material.tabs.TabLayout
-import com.example.trutribe.models.CommunityModel
-import com.example.trutribe.api.RetrofitClient
 import com.example.trutribe.adapters.CommunityAdapter
-import java.util.ArrayList
+import com.example.trutribe.api.RetrofitClient
+import com.example.trutribe.models.CommunityModel
+import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.widget.Toast
 
 class CommunityPageActivity : AppCompatActivity() {
     private lateinit var trendingRecyclerView: RecyclerView
@@ -31,6 +29,7 @@ class CommunityPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_community)
+
         val bottomNavBar = findViewById<TabLayout>(R.id.tablayout)
         bottomNavBar.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -40,7 +39,7 @@ class CommunityPageActivity : AppCompatActivity() {
                         finish()
                     }
                     1 -> {
-                        // This is Community Page – already here
+                        // Already on Community Page
                     }
                     2 -> {
                         startActivity(Intent(this@CommunityPageActivity, NotificationActivity::class.java))
@@ -57,10 +56,10 @@ class CommunityPageActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-
         trendingRecyclerView = findViewById(R.id.trending_community)
         suggestedRecyclerView = findViewById(R.id.suggested_community)
         myCommunityRecyclerView = findViewById(R.id.my_community)
+
         trendingRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         suggestedRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         myCommunityRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -71,16 +70,17 @@ class CommunityPageActivity : AppCompatActivity() {
     }
 
     private fun fetchTrendingCommunities() {
-
         val call = RetrofitClient.instance.getTrendingCommunities()
-
         call.enqueue(object : Callback<List<CommunityModel>> {
             override fun onResponse(call: Call<List<CommunityModel>>, response: Response<List<CommunityModel>>) {
                 if (response.isSuccessful) {
                     val trendingList = response.body() ?: ArrayList()
-
                     trendingAdapter = CommunityAdapter(ArrayList(trendingList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.id)
+                        if (selectedCommunity.isJoined) {
+                            launchJoinedCommunityActivity(selectedCommunity.id)
+                        } else {
+                            launchQuizActivity(selectedCommunity.id)
+                        }
                     }
                     trendingRecyclerView.adapter = trendingAdapter
                 } else {
@@ -96,13 +96,16 @@ class CommunityPageActivity : AppCompatActivity() {
 
     private fun fetchSuggestedCommunities() {
         val call = RetrofitClient.instance.getSuggestedCommunities()
-
         call.enqueue(object : Callback<List<CommunityModel>> {
             override fun onResponse(call: Call<List<CommunityModel>>, response: Response<List<CommunityModel>>) {
                 if (response.isSuccessful) {
                     val suggestedList = response.body() ?: ArrayList()
                     suggestedAdapter = CommunityAdapter(ArrayList(suggestedList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.id)
+                        if (selectedCommunity.isJoined) {
+                            launchJoinedCommunityActivity(selectedCommunity.id)
+                        } else {
+                            launchQuizActivity(selectedCommunity.id)
+                        }
                     }
                     suggestedRecyclerView.adapter = suggestedAdapter
                 } else {
@@ -118,13 +121,16 @@ class CommunityPageActivity : AppCompatActivity() {
 
     private fun fetchMyCommunities() {
         val call = RetrofitClient.instance.getMyCommunities()
-
         call.enqueue(object : Callback<List<CommunityModel>> {
             override fun onResponse(call: Call<List<CommunityModel>>, response: Response<List<CommunityModel>>) {
                 if (response.isSuccessful) {
                     val myCommunityList = response.body() ?: ArrayList()
                     myCommunityAdapter = CommunityAdapter(ArrayList(myCommunityList)) { selectedCommunity ->
-                        launchQuizActivity(selectedCommunity.id)
+                        if (selectedCommunity.isJoined) {
+                            launchJoinedCommunityActivity(selectedCommunity.id)
+                        } else {
+                            launchQuizActivity(selectedCommunity.id)
+                        }
                     }
                     myCommunityRecyclerView.adapter = myCommunityAdapter
                 }
@@ -140,5 +146,18 @@ class CommunityPageActivity : AppCompatActivity() {
         val intent = Intent(this, QuizActivity::class.java)
         intent.putExtra("communityId", selectedCommunityId)
         startActivity(intent)
+    }
+
+    private fun launchJoinedCommunityActivity(communityId: Int) {
+        val intent = Intent(this, JoinedCommunityActivity::class.java)
+        intent.putExtra("communityId", communityId)
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchTrendingCommunities()
+        fetchSuggestedCommunities()
+        fetchMyCommunities()
     }
 }
